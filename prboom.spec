@@ -16,6 +16,7 @@ Source5:	doom2-newcaco48.png
 URL:		http://prboom.sourceforge.net/
 Group:		Games/Arcade
 License:	GPL
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	SDL-devel smpeg-devel SDL_mixer-devel SDL_net-devel
 BuildRequires:	sed MesaGLU-devel
 Requires:	TiMidity++
