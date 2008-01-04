@@ -97,41 +97,52 @@ install -m644 %{SOURCE5} -D %{buildroot}%{_liconsdir}/doom2-newcaco.png
 #
 # Menus
 
-install -d %{buildroot}%{_menudir}
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
 
-cat << EOF > %{buildroot}%{_menudir}/%{name}
-?package(%{name}): needs="x11" \
-		   section="More Applications/Games/Arcade" \
-		   title="PrBooM" \
-		   longtitle="%{Summary}" \
-		   icon="doom2-newcaco.png" \
-		   command="%{_gamesbindir}/%{name}"
-?package(%{name}): needs="x11" \
-		   section="More Applications/Games/Arcade" \
-		   title="PrBooM Multiplayer" \
-		   longtitle="%{Summary}" \
-		   icon="doom2-newcaco.png" \
-		   command="%{_gamesbindir}/%{name} -net \`hostname\`"
-#?package(%{name}): needs="x11" \
-#		    section="Documentation/Websites" \
-#		    title="PrBooM Homepage" \
-#		    icon="doom2-newcaco.png" \
-#		    command="if ps U \$USER | grep -q \$BROWSER; then \$BROWSER -remote \'openURL(%{url})\'; else \$BROWSER \'%{url}\'; fi"
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}.desktop
+[Desktop Entry]
+Type=Application
+Categories=Game;ArcadeGame;
+Name=PrBooM
+Comment=%{Summary}
+Icon=doom2-newcaco
+Exec=%{_gamesbindir}/%{name}
+
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-multiplayer.desktop
+[Desktop Entry]
+Type=Application
+Categories=Game;ArcadeGame;
+Name=PrBooM Multiplayer
+Comment=%{Summary}
+Icon=doom2-newcaco
+Exec=%{_gamesbindir}/%{name} -net \`hostname\`##
+
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-homepage.desktop
+[Desktop Entry]
+Type=Application
+Categories=Documentation/Websites#
+Name=PrBooM Homepage#
+Icon=doom2-newcaco#
+Exec=if ps U \$USER | grep -q \$BROWSER; then \$BROWSER -remote \'openURL(%{url})\'; else \$BROWSER \'%{url}\'; fi
 EOF
 
-cat << EOF > %{buildroot}%{_menudir}/%{name}-gl
-?package(%{name}-gl): needs="x11" \
-		      section="More Applications/Games/Arcade" \
-		      title="PrBooM-GL" \
-		      longtitle="%{Summary}" \
-		      icon="doom2-newcaco.png" \
-		      command="%{_gamesbindir}/%{name}-gl"
-?package(%{name}-gl): needs="x11" \
-		      section="More applications/Games/Arcade" \
-		      title="PrBooM-GL Multiplayer" \
-		      longtitle="%{Summary}" \
-		      icon="doom2-newcaco.png" \
-		      command="%{_gamesbindir}/%{name}-gl -net \`hostname\`"
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-gl.desktop
+[Desktop Entry]
+Type=Application
+Categories=Game;ArcadeGame;
+Name=PrBooM-GL
+Comment=%{Summary}
+Icon=doom2-newcaco
+Exec=%{_gamesbindir}/%{name}-gl
+
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-gl-multiplayer.desktop
+[Desktop Entry]
+Type=Application
+Categories=More applications/Games/Arcade
+Name=PrBooM-GL Multiplayer
+Comment=%{Summary}
+Icon=doom2-newcaco
+Exec=%{_gamesbindir}/%{name}-gl -net \`hostname\`
 EOF
 
 %post
@@ -164,7 +175,9 @@ rm -rf %{buildroot}
 %{_gamesdatadir}/doom/%{name}.wad
 %{_mandir}/man5/*
 %{_mandir}/man6/%{name}.6*
-%{_menudir}/%{name}
+%{_datadir}/applications/mandriva-%{name}.desktop
+%{_datadir}/applications/mandriva-%{name}-multiplayer.desktop
+%{_datadir}/applications/mandriva-%{name}-homepage.desktop
 %{_iconsdir}/doom2-newcaco.png
 %{_miconsdir}/doom2-newcaco.png
 %{_liconsdir}/doom2-newcaco.png
@@ -172,7 +185,8 @@ rm -rf %{buildroot}
 %files gl
 %defattr(-,root,root)
 %{_gamesbindir}/%{name}-gl
-%{_menudir}/%{name}-gl
+%{_datadir}/applications/mandriva-%{name}-gl.desktop
+%{_datadir}/applications/mandriva-%{name}-gl-multiplayer.desktop
 
 %files server
 %defattr(-,root,root)
