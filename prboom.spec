@@ -107,6 +107,7 @@ Name=PrBooM
 Comment=%{Summary}
 Icon=doom2-newcaco
 Exec=%{_gamesbindir}/%{name}
+EOF
 
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-multiplayer.desktop
 [Desktop Entry]
@@ -116,6 +117,7 @@ Name=PrBooM Multiplayer
 Comment=%{Summary}
 Icon=doom2-newcaco
 Exec=%{_gamesbindir}/%{name} -net \`hostname\`##
+EOF
 
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-homepage.desktop
 [Desktop Entry]
@@ -134,6 +136,7 @@ Name=PrBooM-GL
 Comment=%{Summary}
 Icon=doom2-newcaco
 Exec=%{_gamesbindir}/%{name}-gl
+EOF
 
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-gl-multiplayer.desktop
 [Desktop Entry]
