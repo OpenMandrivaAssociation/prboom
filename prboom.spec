@@ -148,17 +148,25 @@ Icon=doom2-newcaco
 Exec=%{_gamesbindir}/%{name}-gl -net \`hostname\`
 EOF
 
+%if %mdkversion < 200900
 %post
 %{update_menus}
+%endif
 
+%if %mdkversion < 200900
 %postun
 %{clean_menus}
+%endif
 
+%if %mdkversion < 200900
 %post gl
 %{update_menus}
+%endif
 
+%if %mdkversion < 200900
 %postun gl
 %{clean_menus}
+%endif
 
 %post server
 %_post_service %{name}-game-server
