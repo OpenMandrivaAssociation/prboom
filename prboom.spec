@@ -1,6 +1,6 @@
 %define version 2.5.0
 %define name    prboom
-%define release %mkrel 1
+%define release %mkrel 2
 %define	Summary	An enhanced version of DooM - classic 3D shoot-em-up game
 
 Summary:	%{Summary}
