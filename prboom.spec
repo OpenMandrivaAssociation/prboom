@@ -57,13 +57,14 @@ that passes data between the different players in the game.
 
 %build
 
-%configure --disable-cpu-opt --enable-gl
+%define common_conf_flags --disable-cpu-opt --disable-i386-asm
+%configure %{common_conf_flags} --enable-gl
 %make
 cp src/prboom prboom-gl
 
 make clean
 
-%configure --disable-cpu-opt
+%configure %{common_conf_flags} --disable-cpu-opt
 %make
 
 %install
