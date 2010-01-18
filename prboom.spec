@@ -1,6 +1,6 @@
 %define version 2.5.0
 %define name    prboom
-%define release %mkrel 3
+%define release %mkrel 4
 %define	Summary	An enhanced version of DooM - classic 3D shoot-em-up game
 
 Summary:	%{Summary}
@@ -117,16 +117,7 @@ Categories=Game;ArcadeGame;
 Name=PrBooM Multiplayer
 Comment=%{Summary}
 Icon=doom2-newcaco
-Exec=%{_gamesbindir}/%{name} -net \`hostname\`##
-EOF
-
-cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-homepage.desktop
-[Desktop Entry]
-Type=Application
-Categories=Documentation/Websites#
-Name=PrBooM Homepage#
-Icon=doom2-newcaco#
-Exec=if ps U \$USER | grep -q \$BROWSER; then \$BROWSER -remote \'openURL(%{url})\'; else \$BROWSER \'%{url}\'; fi
+Exec=sh -c "%{_gamesbindir}/%{name} -net \`hostname\`"
 EOF
 
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-gl.desktop
@@ -142,11 +133,11 @@ EOF
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-gl-multiplayer.desktop
 [Desktop Entry]
 Type=Application
-Categories=More applications/Games/Arcade
+Categories=Game;ArcadeGame;
 Name=PrBooM-GL Multiplayer
 Comment=%{Summary}
 Icon=doom2-newcaco
-Exec=%{_gamesbindir}/%{name}-gl -net \`hostname\`
+Exec=sh -c "%{_gamesbindir}/%{name}-gl -net \`hostname\`"
 EOF
 
 %if %mdkversion < 200900
