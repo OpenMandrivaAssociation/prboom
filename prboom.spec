@@ -180,7 +180,6 @@ rm -rf %{buildroot}
 %{_mandir}/man6/%{name}.6*
 %{_datadir}/applications/mandriva-%{name}.desktop
 %{_datadir}/applications/mandriva-%{name}-multiplayer.desktop
-%{_datadir}/applications/mandriva-%{name}-homepage.desktop
 %{_iconsdir}/doom2-newcaco.png
 %{_miconsdir}/doom2-newcaco.png
 %{_liconsdir}/doom2-newcaco.png
