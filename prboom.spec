@@ -16,9 +16,12 @@ Source5:	doom2-newcaco48.png
 URL:		http://prboom.sourceforge.net/
 Group:		Games/Arcade
 License:	GPL
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	SDL-devel smpeg-devel SDL_mixer-devel SDL_net-devel
-BuildRequires:	sed MesaGLU-devel
+BuildRequires:	smpeg-devel
+BuildRequires:	sed
+BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(SDL_net)
+BuildRequires:	pkgconfig(glu)
+BuildRequires:	pkgconfig(SDL_mixer)
 Requires:	TiMidity++
 Requires:	doom-iwad
 
@@ -140,34 +143,11 @@ Icon=doom2-newcaco
 Exec=sh -c "%{_gamesbindir}/%{name}-gl -net \`hostname\`"
 EOF
 
-%if %mdkversion < 200900
-%post
-%{update_menus}
-%endif
-
-%if %mdkversion < 200900
-%postun
-%{clean_menus}
-%endif
-
-%if %mdkversion < 200900
-%post gl
-%{update_menus}
-%endif
-
-%if %mdkversion < 200900
-%postun gl
-%{clean_menus}
-%endif
-
 %post server
 %_post_service %{name}-game-server
 
 %preun server
 %_preun_service %{name}-game-server
-
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr (-,root,root)
