@@ -1,0 +1,7 @@
+sources:
+  "doom2-newcaco16.png:"	dd0cade7caf048145790a4fb27cb28f30f2f8511
+  "doom2-newcaco32.png:"	64ba40a409202fd9f7425fd1438fb8be9013ad08
+  "doom2-newcaco48.png:"	8c01aa195c801591799e287741b071f25933b558
+  "prboom-2.5.0.tar.bz2:"	464b3a032e8d5b3267c26315c4b7e3b53c531c64
+  "prboom-game-server.init:"	9f60454b457aa643cef5c7b332216172f07a9e63
+  "prboom-game-server.sysconfig:"	6434a09c77573528a13a1c5bc6ceaf7651db52e4
