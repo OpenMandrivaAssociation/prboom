@@ -1,0 +1,57 @@
+#Configuration for PrBooM Game Server.
+
+#Specify the number of players in the game (default 2). The server will
+#wait for this many players to join before starting the game.
+PLAYERS="1"
+
+
+#The episode to play (default 1). Unless you are playing Doom 1 or  Ulti-
+#mate  Doom,  and wish to play one of the later episodes, you do not need
+#to change this.
+EPISODE="1"
+
+
+#The level to play (default 1).
+LEVEL="1"
+
+
+#Specify the skill level to play (1-5).
+SKILL="3"
+
+
+#Specifies a WAD file to play. This is added to the  internal  list  that
+#the  server  keeps. When a client connects, the server sends the list of
+#WADs; PrBoom will then add this to the list of  WADs  specified  on  its
+#command  line.  Optionally, an url to the file can be given too; if when
+#PrBoom connects it cannot  find  the  named  WAD,  it  will  attempt  to
+#retrieve  the  file  from the given url, extracting it if necessary. See
+#the prboom manpage for information about the supported url types and
+#compression formats.
+#WADNAME="yourwad.wad"
+
+
+#Tells  prboom-game-server  what  port number to communicate via (default
+#5030).  Note that if you change this from  the  default,  then  all  the
+#clients  will  also need to specify this number when they try to connect
+#(the default programmed into prboom is also 5030)
+PORT="5030"
+
+
+#Set game mode to "cooperative", "deathmatch" (old) or "altdeath"
+#(v2 deathmatch). Default is cooperative. See  the original  Doom  docs
+#for  information  about the different network game modes.
+GAME_MODE="cooperative"
+
+
+#Select fast mode (monsters move faster). Use "yes" or "no".
+FAST_MODE="no"
+
+
+#Select nomonsters mode, i.e. there are no monsters in the game.
+#Use "yes" or "no".
+NO_MONSTERS="no"
+
+
+#Respawn mode. If you don't know what this is, you don't want to ;-).
+#Use "yes" or "no".
+RESPAWN="no"
