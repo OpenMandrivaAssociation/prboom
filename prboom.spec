@@ -1,18 +1,16 @@
-%define version 2.5.0
-%define name    prboom
-%define release %mkrel 5
 %define	Summary	An enhanced version of DooM - classic 3D shoot-em-up game
 
 Summary:	%{Summary}
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		prboom
+Version:	2.5.0
+Release:	8
 Source0:	http://prdownloads.sourceforge.net/prboom/%{name}-%{version}.tar.bz2
 Source1:	%{name}-game-server.sysconfig
-Source2:	%{name}-game-server.init
+Source2:	%{name}-game-server.service
 Source3:	doom2-newcaco16.png
 Source4:	doom2-newcaco32.png
 Source5:	doom2-newcaco48.png
+Source6:	%{name}-game-server.wrapper
 URL:		http://prboom.sourceforge.net/
 Group:		Games/Arcade
 License:	GPL
@@ -59,7 +57,6 @@ that passes data between the different players in the game.
 %setup -q
 
 %build
-
 %define common_conf_flags --disable-cpu-opt --disable-i386-asm
 %configure %{common_conf_flags} --enable-gl
 %make
@@ -71,26 +68,22 @@ make clean
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 install -m755 prboom-gl %{buildroot}%{_gamesbindir}
 
 # delete unwanted files
-rm -fr %{buildroot}%_datadir/doc/
+rm -fr %{buildroot}%{_datadir}/doc/
 
 #
 # Initscript
 install -d %{buildroot}%{_sysconfdir}/sysconfig \
-	   %{buildroot}%{_initrddir}
+	   %{buildroot}%{_unitdir}
 
 cp %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/%{name}-game-server
-cp %{SOURCE2} %{buildroot}%{_initrddir}/%{name}-game-server
+cp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}-game-server.service
 
 sed -i "s|/etc/sysconfig|%{_sysconfdir}/sysconfig| ; s|/usr/games|%{_gamesbindir}|" \
-%{buildroot}%{_initrddir}/%{name}-game-server
-
-
-chmod 755 %{buildroot}%{_initrddir}/%{name}-game-server
+%{buildroot}%{_unitdir}/%{name}-game-server.service
 
 #
 # Icons
@@ -99,11 +92,15 @@ install -m644 %{SOURCE4} -D %{buildroot}%{_iconsdir}/doom2-newcaco.png
 install -m644 %{SOURCE5} -D %{buildroot}%{_liconsdir}/doom2-newcaco.png
 
 #
+# Wrapper to launch server
+install -m755 %{SOURCE6} -D %{buildroot}%{_gamesbindir}/%{name}-game-server.wrapper
+
+#
 # Menus
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
+mkdir -p %{buildroot}%{_datadir}/applications/
 
-cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}.desktop
+cat << EOF > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop
 [Desktop Entry]
 Type=Application
 Categories=Game;ArcadeGame;
@@ -113,7 +110,7 @@ Icon=doom2-newcaco
 Exec=%{_gamesbindir}/%{name}
 EOF
 
-cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-multiplayer.desktop
+cat << EOF > %{buildroot}%{_datadir}/applications/mandriva-%{name}-multiplayer.desktop
 [Desktop Entry]
 Type=Application
 Categories=Game;ArcadeGame;
@@ -123,7 +120,7 @@ Icon=doom2-newcaco
 Exec=sh -c "%{_gamesbindir}/%{name} -net \`hostname\`"
 EOF
 
-cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-gl.desktop
+cat << EOF > %{buildroot}%{_datadir}/applications/mandriva-%{name}-gl.desktop
 [Desktop Entry]
 Type=Application
 Categories=Game;ArcadeGame;
@@ -133,7 +130,7 @@ Icon=doom2-newcaco
 Exec=%{_gamesbindir}/%{name}-gl
 EOF
 
-cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}-gl-multiplayer.desktop
+cat << EOF > %{buildroot}%{_datadir}/applications/mandriva-%{name}-gl-multiplayer.desktop
 [Desktop Entry]
 Type=Application
 Categories=Game;ArcadeGame;
@@ -143,14 +140,17 @@ Icon=doom2-newcaco
 Exec=sh -c "%{_gamesbindir}/%{name}-gl -net \`hostname\`"
 EOF
 
+
 %post server
-%_post_service %{name}-game-server
+%systemd_post %{name}-game-server.service
 
 %preun server
-%_preun_service %{name}-game-server
+%systemd_preun %{name}-game-server.service
+
+%postun server
+%systemd_postun_with_restart %{name}-game-server.service
 
 %files
-%defattr (-,root,root)
 %doc AUTHORS NEWS README TODO
 %doc doc/*.txt doc/README.*
 %{_gamesbindir}/%{name}
@@ -165,14 +165,12 @@ EOF
 %{_liconsdir}/doom2-newcaco.png
 
 %files gl
-%defattr(-,root,root)
 %{_gamesbindir}/%{name}-gl
 %{_datadir}/applications/mandriva-%{name}-gl.desktop
 %{_datadir}/applications/mandriva-%{name}-gl-multiplayer.desktop
 
 %files server
-%defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}-game-server
-%{_initrddir}/%{name}-game-server
-%{_gamesbindir}/%{name}-game-server
+%{_unitdir}/%{name}-game-server*
+%{_gamesbindir}/%{name}-game-server*
 %{_mandir}/man6/%{name}-game-server*

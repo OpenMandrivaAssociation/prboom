@@ -1,0 +1,10 @@
+[Unit]
+Description=PrBooM game server
+After=syslog.target
+
+[Service]
+Type=forking
+ExecStart=/usr/games/prboom-game-server.wrapper &
+
+[Install]
+WantedBy=multi-user.target

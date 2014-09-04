@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Source server configuration
+if [ -f /etc/sysconfig/prboom-game-server ]; then
+
+    . /etc/sysconfig/prboom-game-server
+
+    [ -n "${PLAYERS}" ] && PLAYERS="-N ${PLAYERS}"
+    [ -n "${EPISODE}" ] && EPISODE="-e ${EPISODE}"
+    [ -n "${LEVEL}" ]   && LEVEL="-l ${LEVEL}"
+    [ -n "${SKILL}" ]   && SKILL="-s ${SKILL}"
+    [ -n "${WADNAME}" ] && WADNAME="-w ${WADNAME}"
+    [ -n "${PORT}" ]    && PORT="-p ${PORT}"
+
+    [ "${GAME_MODE}" = "cooperative" ] && unset GAME_MODE
+    [ "${GAME_MODE}" = "deathmatch" ]  && GAME_MODE="-d"
+    [ "${GAME_MODE}" = "altdeath" ]    && GAME_MODE="-a"
+
+    [ "${FAST_MODE}" = "yes" ]         && FAST_MODE="-f"
+    [ "${NO_MONSTERS}" = "yes" ]       && NO_MONSTERS="-n"
+    [ "${RESPAWN}" = "yes" ]           && RESPAWN="-r"
+
+fi
+
+/usr/games/prboom-game-server ${PLAYERS} \
+			     ${EPISODE} \
+			     ${LEVEL} \
+			     ${SKILL} \
+			     ${GAME_MODE} \
+			     ${FAST_MODE} \
+			     ${NO_MONSTERS} \
+			     ${RESPAWN} \
+			     ${WADNAME} \
+			     ${PORT} &
+

@@ -1,2 +1,5 @@
 sources:
-  "prboom-2.5.0.tar.bz2": 464b3a032e8d5b3267c26315c4b7e3b53c531c64
+  doom2-newcaco16.png: dd0cade7caf048145790a4fb27cb28f30f2f8511
+  doom2-newcaco32.png: 64ba40a409202fd9f7425fd1438fb8be9013ad08
+  doom2-newcaco48.png: 8c01aa195c801591799e287741b071f25933b558
+  prboom-2.5.0.tar.bz2: 464b3a032e8d5b3267c26315c4b7e3b53c531c64
