@@ -3,7 +3,7 @@
 Summary:	%{Summary}
 Name:		prboom
 Version:	2.5.0
-Release:	8
+Release:	9
 Source0:	http://prdownloads.sourceforge.net/prboom/%{name}-%{version}.tar.bz2
 Source1:	%{name}-game-server.sysconfig
 Source2:	%{name}-game-server.service
