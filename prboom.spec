@@ -11,7 +11,7 @@ Source3:	doom2-newcaco16.png
 Source4:	doom2-newcaco32.png
 Source5:	doom2-newcaco48.png
 Source6:	%{name}-game-server.wrapper
-URL:		http://prboom.sourceforge.net/
+URL:		https://prboom.sourceforge.net/
 Group:		Games/Arcade
 License:	GPL
 BuildRequires:	smpeg-devel
