@@ -14,6 +14,11 @@ Source6:	%{name}-game-server.wrapper
 URL:		https://prboom.sourceforge.net/
 Group:		Games/Arcade
 License:	GPL
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	smpeg-devel
 BuildRequires:	sed
 BuildRequires:	pkgconfig(sdl)
